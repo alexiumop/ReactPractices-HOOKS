@@ -1,0 +1,17 @@
+.inicial {
+    color: #ffffff;
+    font-size: 70px;
+}
+
+.body-hello {
+    background-color: #282c34;
+}
+
+.aligment-buttons {
+    display:flex;
+    justify-content: center;
+}
+
+.button-inc {
+    margin-right: 10px;
+}
