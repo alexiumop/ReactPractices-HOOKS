@@ -10,7 +10,7 @@ export default () => {
     //Iniciando el ciclo componentDidMount con UseEffect
     useEffect(() => {
         document.title = title;
-    }, [title]);
+    }, []);
 
     useEffect(() => {
         if(count === 50) {
