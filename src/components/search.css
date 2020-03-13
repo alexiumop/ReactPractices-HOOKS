@@ -1,0 +1,13 @@
+.alignment-search {
+    display: flex !important;
+    justify-content: center;
+}
+
+.margin-items {
+    margin-right: 10px;
+}
+
+.input-styling {
+    padding: 4px;
+    border-radius: 5px;
+}
