@@ -1,6 +1,7 @@
 .alignment-search {
     display: flex !important;
     justify-content: center;
+    margin-top: 100px;
 }
 
 .margin-items {
@@ -10,4 +11,12 @@
 .input-styling {
     padding: 4px;
     border-radius: 5px;
+}
+
+.bg-title {
+    background-color: #fff;
+}
+
+.thumb {
+    margin: 10px;
 }

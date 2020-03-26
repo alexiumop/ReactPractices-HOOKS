@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import './search.css';
 import { Button } from 'react-bootstrap';
+import Loader from 'react-loader-spinner';
+import { AppBar, Typography, Toolbar, IconButton } from '@material-ui/core';
 
 export default () => {
 
@@ -8,13 +10,14 @@ const [search, setSearch] = useState('');
 const [query, setQuery] = useState('');
 const [results, setResults] = useState([]);
 const [loading, setLoading] = useState(false);
+const [link, setLink] = useState('');
 
 useEffect( () => {
     document.title = 'Busqueda Async'
     async function fetchData() {
         try {
             setLoading(true);
-            const response = await fetch(`https://api.giphy.com/v1/gifs/search?api_key=WH4gqMoUpIqyJBB50NeJUn7e42sT4a0V&q=${query}&limit=10&offset=0&rating=G&lang=en`);
+            const response = await fetch(`https://api.giphy.com/v1/gifs/search?api_key=WH4gqMoUpIqyJBB50NeJUn7e42sT4a0V&q=${query}&limit=20&offset=0&rating=G&lang=en`);
             const json = await response.json();
             setResults(
                 json.data.map(item => {
@@ -24,6 +27,7 @@ useEffect( () => {
         } 
          finally {
             setLoading(false);
+            setLink('https://developers.giphy.com/docs/sdk');
         }  
     }
     if(query !== '') {
@@ -31,8 +35,23 @@ useEffect( () => {
     }
 }, [query]);
 
+function handleLink(e) {
+    e.preventDefault();
+    return link
+}
+
     return (
         <React.Fragment>
+            <AppBar>
+                <Toolbar>
+                    <IconButton edge="start" color="inherit">
+                        
+                    </IconButton>
+                    <Typography variant="h6" noWrap>
+                        Busca tu GHIPY
+                    </Typography>
+                </Toolbar>
+            </AppBar>
             <div className="alignment-search">
                 <form onSubmit={e => {
                     e.preventDefault()
@@ -49,7 +68,8 @@ useEffect( () => {
                             variant="success">
                         Buscar
                 </Button>
-                    <Button variant="danger"
+                <Button variant="danger" 
+                        className="margin-items"
                         onClick={e => {
                             setSearch('');
                             setResults([]);
@@ -57,13 +77,34 @@ useEffect( () => {
                         }}>
                         Limpiar busqueda
                 </Button>
+                {results.length > 0 ? <Button variant="info"
+                        onClick={e => {
+                         handleLink(e)  
+                        }}>
+                        Aprende Más    
+                </Button> : null}
+
                 </form>
             </div>
             <div className="panel panel-success">
                 <div className="panel-body">
-                    {loading ? <h1>Cargando...</h1> :
+                    {loading ? <div className="alignment-search">
+                                <Loader 
+                                    type="Plane" 
+                                    color="#ffffff" 
+                                    height={180} 
+                                    width={180}
+                                />
+                                </div> :
                         results.map((item) => (
-                            <video autoPlay key={item} loop src={item} />
+                            <video 
+                                autoPlay 
+                                key={item} 
+                                loop src={item} 
+                                width="100" 
+                                height="100" 
+                                className="thumb"
+                            />
                         ))}
                 </div>
             </div>
