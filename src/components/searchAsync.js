@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import './search.css';
 import { Button } from 'react-bootstrap';
 import Loader from 'react-loader-spinner';
-import { AppBar, Typography, Toolbar, IconButton, Menu } from '@material-ui/core';
+import { AppBar, Typography, Toolbar, IconButton } from '@material-ui/core';
 
 export default () => {
 
@@ -10,6 +10,7 @@ const [search, setSearch] = useState('');
 const [query, setQuery] = useState('');
 const [results, setResults] = useState([]);
 const [loading, setLoading] = useState(false);
+const [link, setLink] = useState('');
 
 useEffect( () => {
     document.title = 'Busqueda Async'
@@ -26,6 +27,7 @@ useEffect( () => {
         } 
          finally {
             setLoading(false);
+            setLink('https://developers.giphy.com/docs/sdk');
         }  
     }
     if(query !== '') {
@@ -33,12 +35,17 @@ useEffect( () => {
     }
 }, [query]);
 
+function handleLink(e) {
+    e.preventDefault();
+    return link
+}
+
     return (
         <React.Fragment>
             <AppBar>
                 <Toolbar>
                     <IconButton edge="start" color="inherit">
-                        <Menu />
+                        
                     </IconButton>
                     <Typography variant="h6" noWrap>
                         Busca tu GHIPY
@@ -61,7 +68,8 @@ useEffect( () => {
                             variant="success">
                         Buscar
                 </Button>
-                    <Button variant="danger"
+                <Button variant="danger" 
+                        className="margin-items"
                         onClick={e => {
                             setSearch('');
                             setResults([]);
@@ -69,6 +77,13 @@ useEffect( () => {
                         }}>
                         Limpiar busqueda
                 </Button>
+                {results.length > 0 ? <Button variant="info"
+                        onClick={e => {
+                         handleLink(e)  
+                        }}>
+                        Aprende Más    
+                </Button> : null}
+
                 </form>
             </div>
             <div className="panel panel-success">
