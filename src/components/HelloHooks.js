@@ -33,7 +33,7 @@ export default () => {
                 <span className="button-inc">
                 <Button variant="primary" 
                         onClick={handleCount}>
-                    Incrementar un numero
+                    Incrementar dos numeros
                 </Button>
                 </span>
                 <Button variant="danger"
